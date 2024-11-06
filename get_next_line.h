@@ -6,7 +6,13 @@
 /*   By: tmillot <tmillot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:02:39 by tmillot           #+#    #+#             */
-/*   Updated: 2024/11/06 19:02:41 by tmillot          ###   ########.fr       */
+/*   Updated: 2024/11/06 19:23:48 by tmillot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# include <unistd.h>
+
+#endif
