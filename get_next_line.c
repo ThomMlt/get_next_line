@@ -63,10 +63,12 @@ char	*get_next_line(int fd)
 	while (read_byte > 0 && is_new_line(buffer) == 0)
 	{
 		read_byte = read(fd, buffer, BUFFER_SIZE);
-		if (read_byte < 0)
-			return (NULL);
-		if (read_byte == 0)
-			return (str);
+		if (read_byte <= 0)
+		{
+			if (str && str[0] != '\0' && read_byte == 0)
+				return (str);
+			return (free(str), NULL);
+		}
 		buffer[read_byte] = '\0';
 		str = ft_strjoin_gnl(str, buffer);
 	}
@@ -76,13 +78,12 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	int fd = open("test.txt", O_RDONLY);
-// 	char *str;
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
+// 	char *str = get_next_line(fd);
+// 	while (str != NULL)
+// 	{
+// 		printf("%s", str);
+// 		str = get_next_line(fd);
+// 	}
 // 	str = get_next_line(fd);
 // 	printf("%s", str);
 // 	free(str);
