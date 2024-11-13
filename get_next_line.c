@@ -19,6 +19,8 @@ int	is_new_line(char *str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return (0);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
@@ -27,23 +29,46 @@ int	is_new_line(char *str)
 	}
 	return (0);
 }
+void	*delete_old_line(char *buffer)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	j = 0;
+	while (buffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\n')
+		i++;
+	while (buffer[i + j] != '\0')
+	{
+		buffer[j] = buffer[i + j];
+		j++;
+	}
+	buffer[j] = '\0';
+}
 
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1] ;
 	char		*str;
-	int			len;
+	int			read_byte;
 	
 	str = NULL;
-	len = 1;
-	while (len > 0 && is_new_line(buffer) == 0)
+	read_byte = 1;
+	if (is_new_line(buffer) == 1)
 	{
-		len = read(fd, buffer, BUFFER_SIZE);
-		if (len < 0)
+		delete_old_line(buffer);
+		str = ft_strjoin_gnl(str, buffer);
+	}
+	while (read_byte > 0 && is_new_line(buffer) == 0)
+	{
+		read_byte = read(fd, buffer, BUFFER_SIZE);
+		if (read_byte < 0)
 			return (NULL);
-		if (len == 0)
-			return (NULL);
-		buffer[len] = '\0';
+		if (read_byte == 0)
+			return (str);
+		buffer[read_byte] = '\0';
 		str = ft_strjoin_gnl(str, buffer);
 	}
 	return (str);
@@ -53,12 +78,18 @@ char	*get_next_line(int fd)
 #include <sys/stat.h>
 #include <fcntl.h>
 
-int main()
-{
-	int fd = open("test.txt", O_RDONLY);
-	char *str;
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	close(fd);
-}
+// int main()
+// {
+// 	int fd = open("test.txt", O_RDONLY);
+// 	char *str;
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	close(fd);
+// }
