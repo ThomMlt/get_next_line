@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 int	is_new_line(char *str)
 {
@@ -29,7 +27,8 @@ int	is_new_line(char *str)
 	}
 	return (0);
 }
-void	*delete_old_line(char *buffer)
+
+void	delete_old_line(char *buffer)
 {
 	int	j;
 	int	i;
@@ -50,10 +49,10 @@ void	*delete_old_line(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1] ;
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*str;
 	int			read_byte;
-	
+
 	str = NULL;
 	read_byte = 1;
 	if (is_new_line(buffer) == 1)
@@ -73,10 +72,6 @@ char	*get_next_line(int fd)
 	}
 	return (str);
 }
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 // int main()
 // {

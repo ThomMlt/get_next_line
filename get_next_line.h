@@ -15,10 +15,15 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
-#endif 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);

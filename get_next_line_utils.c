@@ -12,8 +12,6 @@
 
 #include "get_next_line.h"
 
-#include <stdlib.h>
-
 int	ft_strlen_gnl(char *s)
 {
 	int	len;
@@ -58,4 +56,3 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	str[i] = '\0';
 	return (str);
 }
-
