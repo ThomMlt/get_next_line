@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toto <toto@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:02:59 by tmillot           #+#    #+#             */
-/*   Updated: 2024/11/14 17:05:38 by toto             ###   ########.fr       */
+/*   Updated: 2024/11/14 17:06:17 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[MAX_FD][BUFFER_SIZE + 1];
 	char		*str;
 	int			read_byte;
 
 	str = NULL;
 	read_byte = 1;
-	if (is_new_line(buffer) == 1)
+	if (is_new_line(buffer[fd]) == 1)
 	{
-		delete_old_line(buffer);
-		str = ft_strjoin_gnl(str, buffer);
+		delete_old_line(buffer[fd]);
+		str = ft_strjoin_gnl(str, buffer[fd]);
 	}
-	while (read_byte > 0 && is_new_line(buffer) == 0)
+	while (read_byte > 0 && is_new_line(buffer[fd]) == 0)
 	{
-		read_byte = read(fd, buffer, BUFFER_SIZE);
+		read_byte = read(fd, buffer[fd], BUFFER_SIZE);
 		if (read_byte <= 0 || valid_input(fd) == 0)
 		{
 			if (str && str[0] != '\0' && read_byte == 0)
 				return (str);
 			return (free(str), NULL);
 		}
-		buffer[read_byte] = '\0';
-		str = ft_strjoin_gnl(str, buffer);
+		buffer[fd][read_byte] = '\0';
+		str = ft_strjoin_gnl(str, buffer[fd]);
 	}
 	return (str);
 }

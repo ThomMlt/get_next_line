@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toto <toto@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:03:59 by tmillot           #+#    #+#             */
-/*   Updated: 2024/11/14 17:05:40 by toto             ###   ########.fr       */
+/*   Updated: 2024/11/14 17:06:16 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen_gnl(char *s)
 {
@@ -94,7 +94,7 @@ void	delete_old_line(char *buffer)
 
 int	valid_input(int fd)
 {
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (0);
 	return (1);
 }

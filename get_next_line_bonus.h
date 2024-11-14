@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toto <toto@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:02:39 by tmillot           #+#    #+#             */
-/*   Updated: 2024/11/14 17:05:34 by toto             ###   ########.fr       */
+/*   Updated: 2024/11/14 17:06:14 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -24,6 +24,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
+# define MAX_FD 1024
 
 size_t	ft_strlen(const char *s);
 char	*get_next_line(int fd);
