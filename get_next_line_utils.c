@@ -6,7 +6,7 @@
 /*   By: toto <toto@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:03:59 by tmillot           #+#    #+#             */
-/*   Updated: 2024/11/14 17:05:40 by toto             ###   ########.fr       */
+/*   Updated: 2024/11/15 11:28:10 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,12 @@ void	delete_old_line(char *buffer)
 	buffer[j] = '\0';
 }
 
-int	valid_input(int fd)
+char	*process_buffer(char *buffer, char *str)
 {
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	return (1);
+	if (is_new_line(buffer) == 1)
+	{
+		delete_old_line(buffer);
+		str = ft_strjoin_gnl(str, buffer);
+	}
+	return (str);
 }

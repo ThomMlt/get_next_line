@@ -6,7 +6,7 @@
 /*   By: toto <toto@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:02:59 by tmillot           #+#    #+#             */
-/*   Updated: 2024/11/14 17:06:17 by toto             ###   ########.fr       */
+/*   Updated: 2024/11/15 12:03:25 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ char	*get_next_line(int fd)
 
 	str = NULL;
 	read_byte = 1;
-	if (is_new_line(buffer[fd]) == 1)
-	{
-		delete_old_line(buffer[fd]);
-		str = ft_strjoin_gnl(str, buffer[fd]);
-	}
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= MAX_FD)
+		return (NULL);
+	str = process_buffer(buffer[fd], str);
 	while (read_byte > 0 && is_new_line(buffer[fd]) == 0)
 	{
 		read_byte = read(fd, buffer[fd], BUFFER_SIZE);
-		if (read_byte <= 0 || valid_input(fd) == 0)
+		if (read_byte < 0)
+			return (free(str), NULL);
+		if (read_byte == 0)
 		{
-			if (str && str[0] != '\0' && read_byte == 0)
+			if (str != NULL && str[0] != '\0')
 				return (str);
 			return (free(str), NULL);
 		}
@@ -43,14 +43,41 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	int fd = open("test.txt", O_RDONLY);
-// 	char *str = get_next_line(fd);
-// 	while (str != NULL)
-// 	{
-// 		printf("%s", str);
-// 		str = get_next_line(fd);
-// 	}
+// 	int fd2 = open("test5.txt", O_RDONLY);
+// 	int fd3 = open("test3.txt", O_RDONLY);
+// 	char *str;
 // 	str = get_next_line(fd);
-// 	printf("%s", str);
+// 	printf("fd = fd :%s", str);
+// 	str = get_next_line(fd2);
+// 	printf("fd = fd2 :%s", str);
+// 	str = get_next_line(fd3);
+// 	printf("fd = fd3 :%s", str);
+// 	str = get_next_line(fd);
+// 	printf("fd = fd :%s", str);
+// 	str = get_next_line(fd2);
+// 	printf("fd = fd2 :%s", str);
+// 	str = get_next_line(fd3);
+// 	printf("fd = fd3 :%s", str);
+// 	str = get_next_line(fd);
+// 	printf("fd = fd :%s", str);
+// 	str = get_next_line(fd2);
+// 	printf("fd = fd2 :%s", str);
+// 	str = get_next_line(fd3);
+// 	printf("fd = fd3 :%s", str);
+// 	str = get_next_line(fd);
+// 	printf("fd = fd :%s", str);
+// 	str = get_next_line(fd2);
+// 	printf("fd = fd2 :%s", str);
+// 	str = get_next_line(fd3);
+// 	printf("fd = fd3 :%s", str);
+// 	str = get_next_line(fd);
+// 	printf("fd = fd :%s", str);
+// 	str = get_next_line(fd2);
+// 	printf("fd = fd2 :%s", str);
+// 	str = get_next_line(fd3);
+// 	printf("fd = fd3 :%s", str);
 // 	free(str);
 // 	close(fd);
+// 	close(fd2);
+// 	close(fd3);
 // }
